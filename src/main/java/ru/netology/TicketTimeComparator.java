@@ -13,6 +13,4 @@ public class TicketTimeComparator implements Comparator<Ticket> {
         }
         return 0;
     }
-
-
 }

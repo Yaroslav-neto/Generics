@@ -14,12 +14,12 @@ public class AviaSouls {
         return tmp;
     }
 
-    public void add(Ticket ticket) {
-        tickets = addToArray(tickets, ticket);
-    }
-
     public Ticket[] findAll() {
         return tickets;
+    }
+
+    public void add(Ticket ticket) {
+        tickets = addToArray(tickets, ticket);
     }
 
     public Ticket[] search(String from, String to) {
@@ -35,8 +35,18 @@ public class AviaSouls {
         return result;
     }
 
-    public void searchAndSortBy() {
+    public Ticket[] searchAndSortBy(String from, String to) {
+        Ticket[] result = new Ticket[0]; // массив для ответа
+        for (Ticket ticket : tickets) { // перебираем все билеты
+            if (ticket.getFrom().equals(from)) { // совпадает аэропорт вылета
+                if (ticket.getTo().equals(to)) { // совпадает аэропорт прилёта
+                    result = addToArray(result, ticket); // добавляем его в массив ответа
+
+                }
+            }
+        }
         TicketTimeComparator comparator = new TicketTimeComparator();
-        Arrays.sort(tickets, comparator);
+        Arrays.sort(result, comparator);
+        return result;
     }
 }

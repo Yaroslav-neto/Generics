@@ -28,8 +28,7 @@ class AviaSoulsTest {
         sorting.add(ticket4);
         sorting.add(ticket5);
 
-        assertArrayEquals(new Ticket[]{ticket3, ticket1, ticket5},
-                sorting.search("Москва", "Саратов"));
+        assertArrayEquals(new Ticket[]{ticket3, ticket1, ticket5}, sorting.search("Москва", "Саратов"));
     }
 
     @Test
@@ -56,15 +55,12 @@ class AviaSoulsTest {
         sorting.add(ticket3);
         sorting.add(ticket4);
         sorting.add(ticket5);
-        Ticket[] tickets = sorting.findAll();
 
-        sorting.searchAndSortBy();
-
-        assertArrayEquals(new Ticket[]{ticket4, ticket2, ticket3, ticket5, ticket1}, tickets);
+        assertArrayEquals(new Ticket[]{ticket3, ticket5, ticket1}, sorting.searchAndSortBy("Москва", "Саратов"));
     }
 
     @Test
-    void searchTimeFromTo() {
+    void searchTimeFly() {
         AviaSouls sorting = new AviaSouls();
         sorting.add(ticket1);
         sorting.add(ticket2);
@@ -72,9 +68,24 @@ class AviaSoulsTest {
         sorting.add(ticket4);
         sorting.add(ticket5);
 
-        sorting.searchAndSortBy();
-        Ticket[] tickets = sorting.findAll();
+        assertArrayEquals(new Ticket[]{ticket4, ticket2}, sorting.searchAndSortBy("Москва", "Воронеж"));
+    }
 
-        assertArrayEquals(new Ticket[]{ticket4, ticket2, ticket3, ticket5, ticket1}, tickets);
+    @Test
+    void comparatorSearch() {
+        TicketTimeComparator comparator = new TicketTimeComparator();
+
+        Assertions.assertEquals(1, comparator.compare(ticket1, ticket2));
+        Assertions.assertEquals(0, comparator.compare(ticket3, ticket2));
+        Assertions.assertEquals(-1, comparator.compare(ticket4, ticket5));
+    }
+
+    @Test
+    void findAllTest() {
+        AviaSouls sorting = new AviaSouls();
+        sorting.add(ticket1);
+        sorting.add(ticket2);
+
+        assertArrayEquals(new Ticket[]{ticket1, ticket2}, sorting.findAll());
     }
 }
