@@ -21,14 +21,14 @@ class AviaSoulsTest {
 
     @Test
     void sort() {
-        AviaSouls sorting = new AviaSouls();
-        sorting.add(ticket1);
-        sorting.add(ticket2);
-        sorting.add(ticket3);
-        sorting.add(ticket4);
-        sorting.add(ticket5);
+        AviaSouls aviaSouls = new AviaSouls();
+        aviaSouls.add(ticket1);
+        aviaSouls.add(ticket2);
+        aviaSouls.add(ticket3);
+        aviaSouls.add(ticket4);
+        aviaSouls.add(ticket5);
 
-        assertArrayEquals(new Ticket[]{ticket3, ticket1, ticket5}, sorting.search("Москва", "Саратов"));
+        assertArrayEquals(new Ticket[]{ticket3, ticket1, ticket5}, aviaSouls.search("Москва", "Саратов"));
     }
 
     @Test
@@ -49,26 +49,31 @@ class AviaSoulsTest {
 
     @Test
     void comparatorTimeSort() {
-        AviaSouls sorting = new AviaSouls();
-        sorting.add(ticket1);
-        sorting.add(ticket2);
-        sorting.add(ticket3);
-        sorting.add(ticket4);
-        sorting.add(ticket5);
+        AviaSouls aviaSouls = new AviaSouls();
+        TicketTimeComparator comparator = new TicketTimeComparator();
 
-        assertArrayEquals(new Ticket[]{ticket3, ticket5, ticket1}, sorting.searchAndSortBy("Москва", "Саратов"));
+        aviaSouls.add(ticket1);
+        aviaSouls.add(ticket2);
+        aviaSouls.add(ticket3);
+        aviaSouls.add(ticket4);
+        aviaSouls.add(ticket5);
+
+        assertArrayEquals(new Ticket[]{ticket3, ticket5, ticket1},
+                aviaSouls.searchAndSortBy("Москва", "Саратов", comparator));
     }
 
     @Test
     void searchTimeFly() {
-        AviaSouls sorting = new AviaSouls();
-        sorting.add(ticket1);
-        sorting.add(ticket2);
-        sorting.add(ticket3);
-        sorting.add(ticket4);
-        sorting.add(ticket5);
+        AviaSouls aviaSouls = new AviaSouls();
+        TicketTimeComparator comparator = new TicketTimeComparator();
 
-        assertArrayEquals(new Ticket[]{ticket4, ticket2}, sorting.searchAndSortBy("Москва", "Воронеж"));
+        aviaSouls.add(ticket1);
+        aviaSouls.add(ticket2);
+        aviaSouls.add(ticket3);
+        aviaSouls.add(ticket4);
+        aviaSouls.add(ticket5);
+
+        assertArrayEquals(new Ticket[]{ticket4, ticket2}, aviaSouls.searchAndSortBy("Москва", "Воронеж", comparator));
     }
 
     @Test
@@ -82,10 +87,10 @@ class AviaSoulsTest {
 
     @Test
     void findAllTest() {
-        AviaSouls sorting = new AviaSouls();
-        sorting.add(ticket1);
-        sorting.add(ticket2);
+        AviaSouls aviaSouls = new AviaSouls();
+        aviaSouls.add(ticket1);
+        aviaSouls.add(ticket2);
 
-        assertArrayEquals(new Ticket[]{ticket1, ticket2}, sorting.findAll());
+        assertArrayEquals(new Ticket[]{ticket1, ticket2}, aviaSouls.findAll());
     }
 }
